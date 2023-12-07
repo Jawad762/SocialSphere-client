@@ -94,7 +94,7 @@ const EditProfile = () => {
             <input type='file' id='cover' accept='image/*' onChange={(e) => setImage2(e.target.files[0])}  className='hidden'></input>
           </div>
           
-          <div className='absolute bottom-0 grid translate-y-1/2 rounded-full left-8 place-items-center h-28 w-28 md:h-32 md:w-32'>
+          <div className='absolute bottom-0 grid translate-y-1/2 rounded-full left-4 place-items-center h-28 w-28 md:h-32 md:w-32'>
             <img src={profilePicture} className='absolute z-0 object-cover w-24 h-24 rounded-full md:h-32 md:w-32 brightness-90'></img>
             <label htmlFor='profile' className='z-10 cursor-pointer'><TbCameraPlus className='text-2xl md:text-3xl'/></label>
             <input type='file' id='profile' accept='image/*' onChange={(e) => setImage(e.target.files[0])} className='hidden'></input>
