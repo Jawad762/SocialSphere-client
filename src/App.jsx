@@ -29,10 +29,6 @@ function App() {
     )
   }
 
-  setTimeout(() => {
-    setIsPageLoading(false)
-  }, 2000)
-
   const router = createBrowserRouter([
     {
       path: '/',
