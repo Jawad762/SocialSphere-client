@@ -17,6 +17,7 @@ const Sidebar = () => {
       const removeCookie = async () => {
         await axios.post('https://social-sphere-server.onrender.com/api/auth/logout', {}, { withCredentials: true })
         dispatch(logoutComplete())
+        localStorage.removeItem('access-token')
         navigate('/')
       }
       removeCookie()

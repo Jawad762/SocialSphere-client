@@ -23,7 +23,9 @@ const Register = () => {
       const postData = async () => {
         try {
           const res = await axios.post('https://social-sphere-server.onrender.com/api/auth/signin', { username, password }, { withCredentials: true })
-          dispatch(loginComplete(res.data))
+          const {token, ...userData} = res.data
+          dispatch(loginComplete(userData))
+          localStorage.setItem('access_token', token)
           navigate('/')
         } catch (error) {
           dispatch(loginFail())
@@ -46,7 +48,9 @@ const Register = () => {
       const postData = async () => {
         try {
           const res = await axios.post('https://social-sphere-server.onrender.com/api/auth/signup', { username, email, password }, { withCredentials: true })
-          dispatch(loginComplete(res.data))
+          const {token, ...userData} = res.data
+          dispatch(loginComplete(userData))
+          localStorage.setItem('access_token', token)
           navigate('/')
         } catch (error) {
           dispatch(loginFail())
