@@ -39,7 +39,7 @@ const Comment = ({ comment, userId, show }) => {
 
     const handleLikeToggle = async () => {
         try {
-            queryClient.setQueryData(['comments', id], prev => {
+            queryClient.setQueryData(['comments'], prev => {
                 return prev && prev.map(prevComment =>
                     prevComment._id === comment._id
                         ? {

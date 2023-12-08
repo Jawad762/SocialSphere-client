@@ -106,7 +106,8 @@ const Home = () => {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const text = form.get('text');
-    createTweetMutation.mutate({ userId: currentUser._id, text, image: postImage})
+    if (text.length > 0 || currentImage) createTweetMutation.mutate({ userId: currentUser._id, text, image: postImage})
+    else return
     formRef.current.reset()
   };
 
