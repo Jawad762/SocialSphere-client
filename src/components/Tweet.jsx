@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from 'react-query';
 import formatDistance from 'date-fns/formatDistance'
 
-const Tweet = ({ tweet, tweetsType }) => {
+const Tweet = ({ tweet, tweetsType, id, show }) => {
     const currentUser = useSelector((state) => state.user.currentUser);
     const navigate = useNavigate();
 
@@ -52,8 +52,9 @@ const Tweet = ({ tweet, tweetsType }) => {
             await axios.put(`https://social-sphere-server.onrender.com/api/tweet/likeOrUnlike/${tweet._id}`, {
                 id: currentUser._id,
             });
-
             await queryClient.invalidateQueries(['tweets', tweetsType]);
+            await queryClient.invalidateQueries(['userActivity', id, show])
+            await queryClient.invalidateQueries(['tweet', id])
         } catch (error) {
             console.error(error);
         }

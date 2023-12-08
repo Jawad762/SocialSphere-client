@@ -131,7 +131,7 @@ const Profile = () => {
       </div>
 
       {show === 'posts' && userActivity && userActivity.map(tweet => (
-        <Tweet tweet={tweet} tweetsType={'global'} key={tweet._id}/>
+        <Tweet tweet={tweet} tweetsType={'global'} id={id} show={show} key={tweet._id}/>
       ))}
 
       {show === 'comments' && userActivity && userActivity.map(comment => (

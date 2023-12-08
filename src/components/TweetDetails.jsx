@@ -35,7 +35,7 @@ const TweetDetails = () => {
   return !isTweetLoading && !showForm ? (
     <section className='md:ml-[20%] md:border-x h-fit min-h-full border-primaryGray w-full'>
        
-       <Tweet tweet={tweet} tweetsType={'global'}/>
+       <Tweet tweet={tweet} id={id} tweetsType={'global'}/>
        
        <div className='flex items-center justify-between w-full px-3 py-3 -mt-16 md:mt-0'>
           <p>Comments</p>
