@@ -7,6 +7,7 @@ import { useMutation } from 'react-query'
 import { TbCameraPlus } from "react-icons/tb";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import app from '../firebase'
+import { useNavigate } from 'react-router-dom'
 
 const EditProfile = () => {
     
@@ -20,6 +21,7 @@ const EditProfile = () => {
   const [image, setImage] = useState()
   const [image2, setImage2] = useState()
   const [errorType, setErrorType] = useState()
+  const navigate = useNavigate()
   
   const storage = getStorage(app);
 
@@ -78,6 +80,8 @@ const EditProfile = () => {
     } catch (error) {
       console.error(error)
       setErrorType(error.response.data)
+    } finally {
+      navigate("..", { relative: "path" });
     }
   }
 
