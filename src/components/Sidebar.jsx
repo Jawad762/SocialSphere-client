@@ -15,7 +15,7 @@ const Sidebar = () => {
     dispatch(logoutStart())
     setTimeout(() => {
       const removeToken = () => {
-        localStorage.removeItem('access-token')
+        localStorage.removeItem('access_token')
         dispatch(logoutComplete())
         navigate('/')
       }

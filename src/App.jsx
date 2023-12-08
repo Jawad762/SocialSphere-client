@@ -20,8 +20,8 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem('access_token') || null)
   
   useEffect(() => {
-    setToken(token)
-  }, [token])
+    setToken(localStorage.getItem('access_token'))
+  }, [localStorage.getItem('access_token')])
 
   const Layout = () => {
     return (
@@ -36,7 +36,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: token ? <Layout/> : <RegisterPage/>,
+      element: token !== null ? <Layout/> : <RegisterPage/>,
       errorElement: <ErrorPage/>,
       children: [
         {
