@@ -13,14 +13,13 @@ const Sidebar = () => {
   
   const handleLogout = () => {
     dispatch(logoutStart())
-    setTimeout(async () => {
-      const removeCookie = async () => {
-        await axios.post('https://social-sphere-server.onrender.com/api/auth/logout', {}, { withCredentials: true })
-        dispatch(logoutComplete())
+    setTimeout(() => {
+      const removeToken = () => {
         localStorage.removeItem('access-token')
+        dispatch(logoutComplete())
         navigate('/')
       }
-      removeCookie()
+      removeToken()
     }, 2000)
   }
   
