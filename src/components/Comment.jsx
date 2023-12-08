@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom'
 import formatDistance from 'date-fns/formatDistance'
 
 
-const Comment = ({ comment, id, show }) => {
+const Comment = ({ comment, show }) => {
     
     const { id } = useParams();
     const currentUser = useSelector(state => state.user.currentUser)
@@ -30,6 +30,7 @@ const Comment = ({ comment, id, show }) => {
         try {
             await axios.delete(`https://social-sphere-server.onrender.com/api/comment/delete/${comment._id}`, { withCredentials: true })
             await queryClient.invalidateQueries(['comments', id])
+            await queryClient.invalidateQueries(['userActivity', id , show]);
             queryClient.removeQueries(['tweet'])
         } catch (error) {
             console.error(error)
@@ -53,7 +54,7 @@ const Comment = ({ comment, id, show }) => {
 
             await axios.put(`https://social-sphere-server.onrender.com/api/comment/likeOrUnlike/${comment._id}`, { id: currentUser._id });
             await queryClient.invalidateQueries(['comments']);
-            await queryClient.invalidateQueries(['userActivity',id ,show]);
+            await queryClient.invalidateQueries(['userActivity', id , show]);
         } catch (error) {
             console.error(error);
         }
