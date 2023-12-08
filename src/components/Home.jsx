@@ -33,10 +33,11 @@ const Home = () => {
     const uploadImage = (file) => {
       const storageRef = ref(storage, 'posts-images/' + file.name);
       const uploadTask = uploadBytesResumable(storageRef, file, metadata);
-      
-      uploadTask.on('state_changed',
+    
+      uploadTask.on(
+        'state_changed',
         (snapshot) => {
-          setIsImageLoading(true)
+          setIsImageLoading(true);
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
           console.log('Upload is ' + progress + '% done');
           switch (snapshot.state) {
@@ -47,7 +48,7 @@ const Home = () => {
               console.log('Upload is running');
               break;
           }
-        }, 
+        },
         (error) => {
           switch (error.code) {
             case 'storage/unauthorized':
@@ -57,15 +58,77 @@ const Home = () => {
             case 'storage/unknown':
               break;
           }
-        }, 
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setIsImageLoading(false)
-            setPostImage(downloadURL)
-          });
+        },
+        async () => {
+          try {
+            // Resize image before getting download URL
+            const resizedImageBlob = await resizeImage(file);
+            const resizedImageFile = new File([resizedImageBlob], file.name, { type: file.type });
+    
+            const resizedStorageRef = ref(storage, 'resized-images/' + file.name);
+            const resizedUploadTask = uploadBytesResumable(resizedStorageRef, resizedImageFile, metadata);
+    
+            resizedUploadTask.on(
+              'state_changed',
+              (resizedSnapshot) => {
+                // Handle resize upload progress if needed
+              },
+              (resizedError) => {
+                // Handle resize upload error if needed
+              },
+              () => {
+                // Get download URL for the resized image
+                getDownloadURL(resizedUploadTask.snapshot.ref).then((resizedDownloadURL) => {
+                  setIsImageLoading(false);
+                  setPostImage(resizedDownloadURL);
+                });
+              }
+            );
+          } catch (resizeError) {
+            console.error('Error resizing image:', resizeError);
+          }
         }
       );
-    }
+    };
+    
+    const resizeImage = (file) => {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+          const img = new Image();
+          img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const maxWidth = 800;
+            const maxHeight = 800;
+            let width = img.width;
+            let height = img.height;
+    
+            if (width > height) {
+              if (width > maxWidth) {
+                height *= maxWidth / width;
+                width = maxWidth;
+              }
+            } else {
+              if (height > maxHeight) {
+                width *= maxHeight / height;
+                height = maxHeight;
+              }
+            }
+    
+            canvas.width = width;
+            canvas.height = height;
+    
+            ctx.drawImage(img, 0, 0, width, height);
+            canvas.toBlob((blob) => {
+              resolve(blob);
+            }, file.type);
+          };
+          img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+      });
+    };
 
     useEffect(() => {
       currentImage && uploadImage(currentImage)

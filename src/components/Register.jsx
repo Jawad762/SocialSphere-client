@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { loginStart, loginComplete, loginFail, updateToken } from '../redux/userSlice';
@@ -17,8 +17,8 @@ const Register = () => {
     e.preventDefault()
     dispatch(loginStart())
     const form = new FormData(e.currentTarget)
-    const username = form.get('username')
-    const password = form.get('password')
+    const username = form.get('username-signin')
+    const password = form.get('password-signin')
     setTimeout(() => {
       const postData = async () => {
         try {
@@ -42,9 +42,9 @@ const Register = () => {
     e.preventDefault()
     dispatch(loginStart())
     const form = new FormData(e.currentTarget)
-    const username = form.get('username')
+    const username = form.get('username-signup')
     const email = form.get('email')
-    const password = form.get('password')
+    const password = form.get('password-signup')
     setTimeout(() => {
       const postData = async () => {
         try {
@@ -63,6 +63,22 @@ const Register = () => {
       postData()
     }, 3000)
   }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (registrationType === 'signin') handleSignin(e)
+      else handleSignup(e)
+    }
+  }
+  
+  useEffect(() => {
+    document.addEventListener('keypress', handleKeyPress)
+    
+    return () => {
+      document.removeEventListener('keypress', handleKeyPress);
+    };
+  },[registrationType])
   
   return (
         <section className="flex flex-col items-center justify-center w-full h-full gap-6 overflow-hidden bg-primaryBlack xl:flex-row _bg">
@@ -87,12 +103,12 @@ const Register = () => {
                       <form className="space-y-4 md:space-y-6" onSubmit={handleSignin}>
                               {errorType &&  (<p className='font-bold text-red-500'>{errorType}</p>)}
                               <div>
-                                  <label htmlFor="username" className="block mb-2 text-sm">Username</label>
-                                  <input type="text" name="username" id="username" className="border-2 border-transparent focus:border-primaryBlue outline-none  sm:text-sm rounded-lg  block w-full p-2.5 " placeholder="John_Doe" required/>
+                                  <label htmlFor="username-signin" className="block mb-2 text-sm">Username</label>
+                                  <input type="text" name="username-signin" id="username-signin" className="border-2 border-transparent focus:border-primaryBlue outline-none  sm:text-sm rounded-lg  block w-full p-2.5 " placeholder="John_Doe" required/>
                               </div>
                               <div>
-                                  <label htmlFor="password" className="block mb-2 text-sm">Password</label>
-                                  <input type="password" name="password" id="password" placeholder="••••••••" className="border-2 border-transparent focus:border-primaryBlue outline-none sm:text-sm rounded-lg block w-full p-2.5 " required/>
+                                  <label htmlFor="password-signin" className="block mb-2 text-sm">Password</label>
+                                  <input type="password" name="password-signin" id="password-signin" placeholder="••••••••" className="border-2 border-transparent focus:border-primaryBlue outline-none sm:text-sm rounded-lg block w-full p-2.5 " required/>
                               </div>
                               <p className='text-[0.8rem]'>Dont have an account ? <button onClick={() => setSearchParams({ type: 'signup' })} className='text-primaryBlue'>Register here</button></p>
                               <button type="submit" className="w-full bg-secondaryBlue text-white focus:outline-none focus:border-primaryBlue rounded-lg text-sm px-5 py-2.5 text-center ">
@@ -108,16 +124,16 @@ const Register = () => {
                       <form className="space-y-4 md:space-y-6" onSubmit={handleSignup}>
                               {errorType &&  (<p className='font-bold text-red-500'>{errorType}</p>)}
                               <div>
-                                  <label htmlFor="username" className="block mb-2 text-sm">Username</label>
-                                  <input type="text" name="username" id="username" maxLength='12' className="border-2 border-transparent focus:border-primaryBlue outline-none sm:text-sm rounded-lg block w-full p-2.5 " placeholder="John_Doe" required/>
+                                  <label htmlFor="username-signup" className="block mb-2 text-sm">Username</label>
+                                  <input type="text" name="username-signup" id="username-signup" maxLength='12' className="border-2 border-transparent focus:border-primaryBlue outline-none sm:text-sm rounded-lg block w-full p-2.5 " placeholder="John_Doe" required/>
                               </div>
                               <div>
                                   <label htmlFor="email" className="block mb-2 text-sm">Email</label>
                                   <input type="email" name="email" id="email" className="border-2 border-transparent focus:border-primaryBlue outline-none sm:text-sm rounded-lg  block w-full p-2.5 " placeholder="name@gmail.com" required/>
                               </div>
                               <div>
-                                  <label htmlFor="password" className="block mb-2 text-sm">Password</label>
-                                  <input type="password" name="password" id="password" minLength={6} placeholder="••••••••" className="border-2 border-transparent focus:border-primaryBlue outline-none  sm:text-sm rounded-lg  block w-full p-2.5 " required/>
+                                  <label htmlFor="password-signup" className="block mb-2 text-sm">Password</label>
+                                  <input type="password" name="password-signup" id="password-signup" minLength={6} placeholder="••••••••" className="border-2 border-transparent focus:border-primaryBlue outline-none  sm:text-sm rounded-lg  block w-full p-2.5 " required/>
                               </div>
                               <p className='text-[0.8rem]'>Already have an account ? <button onClick={() => setSearchParams({ type: 'signin' })} className='text-primaryBlue'>Sign in</button></p>
                               <button type="submit" className="w-full bg-secondaryBlue text-white focus:outline-none focus:border-primaryBlue rounded-lg text-sm px-5 py-2.5 text-center ">
