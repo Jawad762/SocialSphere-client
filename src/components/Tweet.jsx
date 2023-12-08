@@ -36,9 +36,8 @@ const Tweet = ({ tweet, tweetsType }) => {
 
     const handleLikeToggle = async () => {
         try {
-            console.log(tweetsType)
             queryClient.setQueryData(['tweets', tweetsType], prev => {
-                return prev.map(prevTweet =>
+                return prev && prev.map(prevTweet =>
                     prevTweet._id === tweet._id
                         ? {
                               ...prevTweet,
@@ -63,7 +62,7 @@ const Tweet = ({ tweet, tweetsType }) => {
     const handleDeleteTweet = async () => {
         try {
             queryClient.setQueryData(['tweets', tweetsType], prev => {
-                return prev.filter(prevTweet => prevTweet._id !== tweet._id )
+                return prev && prev.filter(prevTweet => prevTweet._id !== tweet._id )
             })
             
             await axios.delete(`https://social-sphere-server.onrender.com/api/tweet/delete/${tweet._id}`, {
