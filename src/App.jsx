@@ -7,7 +7,6 @@ import HomePage from './pages/HomePage.jsx'
 import ProfilePage from './pages/ProfilePage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import EditProfilePage from './pages/EditProfilePage.jsx';
-import { useSelector } from 'react-redux';
 import TweetDetails from './components/TweetDetails.jsx';
 import ViewUserFollows from './components/ViewUserFollows.jsx';
 import Explore from './components/Explore.jsx';
@@ -17,7 +16,7 @@ const queryClient = new QueryClient()
 
 function App() {
   
-  const userValue = useSelector(state => state.user.currentUser)
+  const token = localStorage.getItem('access_token')
 
   const Layout = () => {
     return (
@@ -32,7 +31,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: userValue ? <Layout/> : <RegisterPage/>,
+      element: token ? <Layout/> : <RegisterPage/>,
       errorElement: <ErrorPage/>,
       children: [
         {

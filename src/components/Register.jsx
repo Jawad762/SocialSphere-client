@@ -59,7 +59,7 @@ const Register = () => {
   }
   
   return (
-        <section className="flex flex-col items-center justify-center w-screen h-screen max-h-screen gap-6 bg-primaryBlack xl:flex-row _bg">
+        <section className="flex flex-col items-center justify-center w-screen h-screen max-h-screen gap-6 overflow-hidden bg-primaryBlack xl:flex-row _bg">
           
               <div className='hidden xl:block'>
                 <img src={Logo} className='w-auto h-auto mx-auto -mt-20 '/>
