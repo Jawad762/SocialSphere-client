@@ -40,7 +40,7 @@ const Comment = ({ comment, userId, show }) => {
     const handleLikeToggle = async () => {
         try {
             queryClient.setQueryData(['comments', id], prev => {
-                return prev.map(prevComment =>
+                return prev && prev.map(prevComment =>
                     prevComment._id === comment._id
                         ? {
                               ...prevComment,
@@ -53,8 +53,8 @@ const Comment = ({ comment, userId, show }) => {
             });
 
             await axios.put(`https://social-sphere-server.onrender.com/api/comment/likeOrUnlike/${comment._id}`, { id: currentUser._id });
-            await queryClient.invalidateQueries(['comments']);
-            await queryClient.invalidateQueries(['userActivity', id , show]);
+            await queryClient.invalidateQueries(['comments', id]);
+            await queryClient.invalidateQueries(['userActivity', userId , show]);
         } catch (error) {
             console.error(error);
         }

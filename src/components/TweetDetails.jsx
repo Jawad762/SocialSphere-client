@@ -33,7 +33,7 @@ const TweetDetails = () => {
   const {data: tweet, isLoading: isTweetLoading} = useQuery(['tweet', id], findTweet)
   
   return !isTweetLoading && !showForm ? (
-    <section className='md:ml-[20%] pb-16 md:border-x h-fit min-h-full border-primaryGray w-full'>
+    <section className='md:ml-[20%] mb-16 md:mb-0 md:border-x h-fit min-h-full border-primaryGray w-full'>
        
        <Tweet tweet={tweet} id={id} tweetsType={'global'}/>
        
