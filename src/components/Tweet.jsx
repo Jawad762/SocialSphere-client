@@ -36,6 +36,7 @@ const Tweet = ({ tweet, tweetsType }) => {
 
     const handleLikeToggle = async () => {
         try {
+            console.log(tweetsType)
             queryClient.setQueryData(['tweets', tweetsType], prev => {
                 return prev.map(prevTweet =>
                     prevTweet._id === tweet._id
