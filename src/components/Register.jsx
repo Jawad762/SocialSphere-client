@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
 import { loginStart, loginComplete, loginFail, updateToken } from '../redux/userSlice';
@@ -63,6 +63,23 @@ const Register = () => {
       postData()
     }, 3000)
   }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault()
+      if (registrationType === 'signin') handleSignin(e)
+      else handleSignup(e)
+    }
+  }
+  
+  useEffect(() => {
+    document.addEventListener('keypress', handleKeyPress)
+    
+    return () => {
+      document.removeEventListener('keypress', handleKeyPress);
+    };
+    
+  },[registrationType])
   
   return (
         <section className="flex flex-col items-center justify-center w-full h-full gap-6 overflow-hidden bg-primaryBlack xl:flex-row _bg">
