@@ -11,17 +11,13 @@ import TweetDetails from './components/TweetDetails.jsx';
 import ViewUserFollows from './components/ViewUserFollows.jsx';
 import Explore from './components/Explore.jsx';
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const queryClient = new QueryClient()
 
 function App() {
 
-  const [token, setToken] = useState(localStorage.getItem('access_token') || null)
-  
-  useEffect(() => {
-    setToken(localStorage.getItem('access_token'))
-  }, [localStorage.getItem('access_token')])
+  const token = useSelector(state => state.user.token)
 
   const Layout = () => {
     return (
@@ -36,7 +32,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: '/',
-      element: token !== null ? <Layout/> : <RegisterPage/>,
+      element: token ? <Layout/> : <RegisterPage/>,
       errorElement: <ErrorPage/>,
       children: [
         {

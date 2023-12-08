@@ -2,9 +2,8 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { GoHome, GoSearch, GoPerson, GoSignOut } from "react-icons/go";
 import { useDispatch, useSelector } from 'react-redux';
-import { logoutStart, logoutComplete } from '../redux/userSlice';
+import { logoutStart, logoutComplete, updateToken } from '../redux/userSlice';
 import Logo from '../public/logo.png'
-import axios from 'axios'
 
 const Sidebar = () => {
   const dispatch = useDispatch()
@@ -15,8 +14,9 @@ const Sidebar = () => {
     dispatch(logoutStart())
     setTimeout(() => {
       const removeToken = () => {
-        localStorage.removeItem('access_token')
         dispatch(logoutComplete())
+        localStorage.removeItem('access_token')
+        dispatch(updateToken(null))
         navigate('/')
       }
       removeToken()

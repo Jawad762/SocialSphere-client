@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux'
-import { loginStart, loginComplete, loginFail } from '../redux/userSlice';
+import { loginStart, loginComplete, loginFail, updateToken } from '../redux/userSlice';
 import axios from 'axios'
 import Logo from '../public/logo.png'
 
@@ -26,6 +26,7 @@ const Register = () => {
           const {token, ...userData} = res.data
           dispatch(loginComplete(userData))
           localStorage.setItem('access_token', token)
+          dispatch(updateToken(localStorage.getItem('access_token')))
           navigate('/')
         } catch (error) {
           dispatch(loginFail())
@@ -51,6 +52,7 @@ const Register = () => {
           const {token, ...userData} = res.data
           dispatch(loginComplete(userData))
           localStorage.setItem('access_token', token)
+          dispatch(updateToken(localStorage.getItem('access_token')))
           navigate('/')
         } catch (error) {
           dispatch(loginFail())
