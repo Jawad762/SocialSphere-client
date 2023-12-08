@@ -11,12 +11,17 @@ import TweetDetails from './components/TweetDetails.jsx';
 import ViewUserFollows from './components/ViewUserFollows.jsx';
 import Explore from './components/Explore.jsx';
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { useEffect, useState } from 'react';
 
 const queryClient = new QueryClient()
 
 function App() {
+
+  const [token, setToken] = useState(localStorage.getItem('access_token') || null)
   
-  const token = localStorage.getItem('access_token')
+  useEffect(() => {
+    setToken(token)
+  }, [token])
 
   const Layout = () => {
     return (
