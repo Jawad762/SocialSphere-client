@@ -75,10 +75,10 @@ const Register = () => {
   }
   
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress(e))
+    document.addEventListener('keydown', handleKeyPress)
     
     return () => {
-      document.removeEventListener('keydown', handleKeyPress(e));
+      document.removeEventListener('keydown', handleKeyPress);
     };
   },[registrationType])
   
