@@ -11,14 +11,21 @@ import TweetDetails from './components/TweetDetails.jsx';
 import ViewUserFollows from './components/ViewUserFollows.jsx';
 import Explore from './components/Explore.jsx';
 import { QueryClient, QueryClientProvider } from 'react-query'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { updateToken } from './redux/userSlice.js';
 
 const queryClient = new QueryClient()
 
 function App() {
 
   const token = useSelector(state => state.user.token)
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    dispatch(updateToken(localStorage.getItem('access_token')))
+  }, [localStorage.getItem('access_token')])
+  
   const Layout = () => {
     return (
       <>
