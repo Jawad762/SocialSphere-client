@@ -16,7 +16,8 @@ const Register = () => {
   const handleSignin = async (e) => {
     e.preventDefault()
     dispatch(loginStart())
-    const form = new FormData(e.currentTarget)
+    const formDOM = document.querySelector('#signin')
+    const form = new FormData(formDOM)
     const username = form.get('username-signin')
     const password = form.get('password-signin')
     setTimeout(() => {
@@ -41,7 +42,8 @@ const Register = () => {
   const handleSignup = async (e) => {
     e.preventDefault()
     dispatch(loginStart())
-    const form = new FormData(e.currentTarget)
+    const formDOM = document.querySelector('#signup')
+    const form = new FormData(formDOM)
     const username = form.get('username-signup')
     const email = form.get('email')
     const password = form.get('password-signup')
@@ -73,10 +75,10 @@ const Register = () => {
   }
   
   useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress)
+    document.addEventListener('keydown', handleKeyPress(e))
     
     return () => {
-      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener('keydown', handleKeyPress(e));
     };
   },[registrationType])
   
@@ -100,7 +102,7 @@ const Register = () => {
                   </div>
                   <div className="p-6 space-y-4 md:space-y-6 sm:p-8 ">
                   {registrationType.toLowerCase()  === 'signin' && (
-                      <form className="space-y-4 md:space-y-6" onSubmit={handleSignin}>
+                      <form className="space-y-4 md:space-y-6" id='signin' onSubmit={handleSignin}>
                               {errorType &&  (<p className='font-bold text-red-500'>{errorType}</p>)}
                               <div>
                                   <label htmlFor="username-signin" className="block mb-2 text-sm">Username</label>
@@ -121,7 +123,7 @@ const Register = () => {
                       </form>
                   )}
                   {registrationType.toLowerCase() === 'signup' && (
-                      <form className="space-y-4 md:space-y-6" onSubmit={handleSignup}>
+                      <form className="space-y-4 md:space-y-6" onSubmit={handleSignup} id='signup'>
                               {errorType &&  (<p className='font-bold text-red-500'>{errorType}</p>)}
                               <div>
                                   <label htmlFor="username-signup" className="block mb-2 text-sm">Username</label>
