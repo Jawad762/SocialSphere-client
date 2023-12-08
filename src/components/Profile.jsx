@@ -135,7 +135,7 @@ const Profile = () => {
       ))}
 
       {show === 'comments' && userActivity && userActivity.map(comment => (
-        <Comment comment={comment} show={show} key={comment._id}/>
+        <Comment comment={comment} userId={id} show={show} key={comment._id}/>
       ))}
 
       {show === 'likes' && userActivity && userActivity.map(tweet => (
