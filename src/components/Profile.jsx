@@ -135,11 +135,11 @@ const Profile = () => {
       ))}
 
       {show === 'comments' && userActivity && userActivity.map(comment => (
-        <Comment comment={comment} key={comment._id}/>
+        <Comment comment={comment} id={id} show={show} key={comment._id}/>
       ))}
 
       {show === 'likes' && userActivity && userActivity.map(tweet => (
-        <Tweet tweet={tweet} key={tweet._id}/>
+        <Tweet tweet={tweet} tweetsType={'global'} id={id} show={show} key={tweet._id}/>
       ))}
       
     </section>
