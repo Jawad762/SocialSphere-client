@@ -114,7 +114,7 @@ const EditProfile = () => {
         <div className='px-10 mt-20'>
             {errorType && <p className='py-2 text-red-500'>{errorType}</p>}
             <p className='mb-4'>Username</p>
-            <input onChange={(e) => setUsername(e.target.value)} className='w-full p-2 bg-transparent border-2 rounded-lg outline-none border-primaryBlue' defaultValue={currentUser.username}></input> 
+            <input maxLength={13} onChange={(e) => setUsername(e.target.value)} className='w-full p-2 bg-transparent border-2 rounded-lg outline-none border-primaryBlue' defaultValue={currentUser.username}></input> 
         </div>
 
         <div className='px-10 mt-6'>

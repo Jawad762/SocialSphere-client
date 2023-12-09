@@ -127,7 +127,7 @@ const Register = () => {
                               {errorType &&  (<p className='font-bold text-red-500'>{errorType}</p>)}
                               <div>
                                   <label htmlFor="username-signup" className="block mb-2 text-sm">Username</label>
-                                  <input type="text" name="username-signup" id="username-signup" maxLength='12' className="border-2 border-transparent focus:border-primaryBlue outline-none sm:text-sm rounded-lg block w-full p-2.5 " placeholder="John_Doe" required/>
+                                  <input type="text" name="username-signup" id="username-signup" maxLength='13' className="border-2 border-transparent focus:border-primaryBlue outline-none sm:text-sm rounded-lg block w-full p-2.5 " placeholder="John_Doe" required/>
                               </div>
                               <div>
                                   <label htmlFor="email" className="block mb-2 text-sm">Email</label>

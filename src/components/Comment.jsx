@@ -65,7 +65,7 @@ const Comment = ({ comment, userId, show }) => {
   const deleteCommentMutation = useMutation(handleDeleteComment)
   
   return (
-    <article key={comment._id} id='comment' className='flex w-full gap-3 p-3 last-of-type:mb-16 md:last-of-type:mb-0'>
+    <article key={comment._id} id='comment' className='flex w-full gap-3 p-3 last-of-type:mb-16 md:last-of-type:mb-0 hover:bg-hoverColor'>
             <Link to={`/profile/${comment.userId}`} className='relative w-12 h-12 rounded-full grow-0 shrink-0'>
                 <img src={commentUser?.profilePicture || Placeholder} className='absolute z-0 object-cover w-12 h-12 rounded-full'></img>
             </Link>

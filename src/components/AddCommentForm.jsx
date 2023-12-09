@@ -120,7 +120,7 @@ const AddCommentForm = ({ tweet, setShowForm }) => {
                           <label className='cursor-pointer' htmlFor='comment-image'><FaRegImage/></label>
                           <input type='file' name='comment-image' id='comment-image' onChange={(e) => setCurrentImage(e.target.files[0])} className='hidden'></input>
                         </div>
-                        <button type='submit' className='px-6 py-1 ml-auto rounded-full bg-secondaryBlue'>Reply</button>
+                        <button type='submit' className='px-6 py-1 ml-auto rounded-full bg-secondaryBlue hover:bg-transparent hover:border hover:border-secondaryBlue'>Reply</button>
                       </div>
                 </div>
               </div>

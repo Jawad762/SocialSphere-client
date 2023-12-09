@@ -85,7 +85,7 @@ const Tweet = ({ tweet, tweetsType, id, show }) => {
     const datePosted = formatDistance(new Date(tweet.createdAt), new Date())
 
     return (
-        <article key={tweet._id} id='tweet' className='flex w-full gap-3 p-3 border-b border-primaryGray last-of-type:mb-16 md:last-of-type:mb-0'>
+        <article key={tweet._id} id='tweet' className='flex w-full gap-3 p-3 border-b border-primaryGray last-of-type:mb-16 md:last-of-type:mb-0 hover:bg-hoverColor'>
             <Link to={`/profile/${tweet.userId}`} className='relative w-12 h-12 rounded-full grow-0 shrink-0'>
                 <img src={tweetUser?.profilePicture || Placeholder} className='absolute z-0 object-cover w-12 h-12 rounded-full'></img>
             </Link>
@@ -97,7 +97,7 @@ const Tweet = ({ tweet, tweetsType, id, show }) => {
                 <p onClick={() => navigate(`/tweet/${tweet._id}`)} className='w-full mt-1 break-all'>
                     {tweet.text}
                 </p>
-                {tweet && tweet.image && <img src={tweet.image} className='object-cover w-full mt-4 rounded-md'></img>}
+                {tweet && tweet.image && <img src={tweet.image} onClick={() => navigate(`/tweet/${tweet._id}`)} className='object-cover w-full mt-4 rounded-md'></img>}
                 <div className='flex items-center gap-1 mt-4'>
                     {tweet.likes.includes(currentUser._id) ? (
                     <IoIosHeart className='text-lg text-red-500 cursor-pointer' onClick={() => LikeToggleMutaion.mutate()} />

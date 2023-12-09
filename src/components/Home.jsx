@@ -183,8 +183,8 @@ const Home = () => {
         </div>
         
         <div className='relative flex w-full text-sm border-white'>
-              <button className='w-full py-2 mx-auto' onClick={() => setSearchParams('?feed=global')}>Global</button>
-              <button className='w-full py-2 mx-auto text-slate-400' onClick={() => setSearchParams('?feed=following')}>Following</button> 
+              <button className='w-full py-2 mx-auto hover:bg-hoverColor' onClick={() => setSearchParams('?feed=global')}>Global</button>
+              <button className='w-full py-2 mx-auto text-slate-400 hover:bg-hoverColor' onClick={() => setSearchParams('?feed=following')}>Following</button> 
               <div className={`absolute bottom-0 h-0.5 w-1/2 bg-primaryBlue transition-all ${tweetsType === 'following' ? 'left-1/2' : 'left-0'}`}></div> 
         </div>
             
@@ -209,7 +209,7 @@ const Home = () => {
                 <FaPen className='cursor-pointer'/>
                 <label className='cursor-pointer' htmlFor='comment-image'><FaRegImage/></label>
                 <input type='file' name='comment-image' id='comment-image' onChange={(e) => setCurrentImage(e.target.files[0])} className='hidden'></input>
-                <button type='submit' className='px-4 py-1 ml-auto bg-secondaryBlue rounded-2xl w-fit '>Post</button>
+                <button type='submit' className='px-4 py-1 ml-auto bg-secondaryBlue rounded-2xl w-fit hover:bg-transparent hover:border hover:border-secondaryBlue '>Post</button>
               </div>
             </div>
         </form>
