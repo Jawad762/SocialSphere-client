@@ -25,7 +25,7 @@ const ViewUserFollows = () => {
     const { data: follows } = useQuery(['follows', id], getUserFollows)
 
   return (
-    <section className='md:ml-[20%] h-fit min-h-full space-y-6 w-full md:border-x border-primaryGray p-5'>
+    <section className='md:ml-[20%] h-fit min-h-full space-y-6 w-full md:border-x border-primaryGray p-5 mb-16 md:mb-0'>
         <h2 className='pb-2 mb-6 ml-2 text-xl capitalize border-b border-primaryGray'>{info}</h2>
         {follows && follows.map(user => (
             <div onClick={() => navigate(`/profile/${user._id}`)} key={user._id} className='flex items-center w-full gap-3 rounded-full cursor-pointer hover:bg-hoverColor'>
