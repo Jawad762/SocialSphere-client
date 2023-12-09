@@ -30,11 +30,14 @@ const Home = () => {
       contentType: 'image/*'
     };
 
-    const uploadImage = (file) => {
-      const storageRef = ref(storage, 'posts-images/' + file.name);
-      const uploadTask = uploadBytesResumable(storageRef, file, metadata);
+    const uploadImage = async (file) => {
+      const resizedImageBlob = await resizeImage(file);
+      const resizedImageFile = new File([resizedImageBlob], file.name, { type: file.type });
     
-      uploadTask.on(
+      const resizedStorageRef = ref(storage, 'resized-images/' + file.name);
+      const resizedUploadTask = uploadBytesResumable(resizedStorageRef, resizedImageFile, metadata);
+    
+      resizedUploadTask.on(
         'state_changed',
         (snapshot) => {
           setIsImageLoading(true);
@@ -59,34 +62,11 @@ const Home = () => {
               break;
           }
         },
-        async () => {
-          try {
-            // Resize image before getting download URL
-            const resizedImageBlob = await resizeImage(file);
-            const resizedImageFile = new File([resizedImageBlob], file.name, { type: file.type });
-    
-            const resizedStorageRef = ref(storage, 'resized-images/' + file.name);
-            const resizedUploadTask = uploadBytesResumable(resizedStorageRef, resizedImageFile, metadata);
-    
-            resizedUploadTask.on(
-              'state_changed',
-              (resizedSnapshot) => {
-                // Handle resize upload progress if needed
-              },
-              (resizedError) => {
-                // Handle resize upload error if needed
-              },
-              () => {
-                // Get download URL for the resized image
-                getDownloadURL(resizedUploadTask.snapshot.ref).then((resizedDownloadURL) => {
-                  setIsImageLoading(false);
-                  setPostImage(resizedDownloadURL);
-                });
-              }
-            );
-          } catch (resizeError) {
-            console.error('Error resizing image:', resizeError);
-          }
+        () => {
+          getDownloadURL(resizedStorageRef).then((resizedDownloadURL) => {
+            setIsImageLoading(false);
+            setPostImage(resizedDownloadURL);
+          });
         }
       );
     };
