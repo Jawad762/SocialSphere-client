@@ -15,7 +15,7 @@ const Notifications = () => {
   }
 
   const { data: notifications } = useQuery('notifications', getUserNotifications)
-    
+  
   return (
     <section className='w-full min-h-full h-fit md:border-x md:ml-[20%] border-primaryGray pb-16 md:pb-0'>
       <h2 className='pt-4 pb-2 mx-6 mb-6 text-xl border-b md:mx-10 border-primaryGray'>Notifications</h2>
