@@ -15,6 +15,8 @@ const Notifications = () => {
   }
 
   const { data: notifications } = useQuery('notifications', getUserNotifications)
+
+  console.log(notifications)
   
   return (
     <section className='w-full min-h-full h-fit md:border-x md:ml-[20%] border-primaryGray pb-16 md:pb-0'>

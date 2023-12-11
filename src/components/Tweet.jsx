@@ -94,7 +94,7 @@ const Tweet = ({ tweet, tweetsType, id, show }) => {
                     <Link to={`/profile/${tweet.userId}`} className='w-full text-sm text-primaryBlue'>@{tweetUser && tweetUser.username}</Link>
                     <p className='absolute right-0 text-primaryBlue text-[0.7rem]'>{datePosted.replace('about', '').replace('less than a minute', '1 minute')} ago</p>
                 </div>
-                <p onClick={() => navigate(`/tweet/${tweet._id}`)} className='w-full mt-1 break-all'>
+                <p onClick={() => navigate(`/tweet/${tweet._id}`)} className='w-full mt-1'>
                     {tweet.text}
                 </p>
                 {tweet && tweet.image && <img src={tweet.image} onClick={() => navigate(`/tweet/${tweet._id}`)} className='object-cover w-full mt-4 rounded-md'></img>}
