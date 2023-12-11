@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { updateToken } from './redux/userSlice.js';
+import Notifications from './components/Notifications.jsx';
 
 const queryClient = new QueryClient()
 
@@ -65,6 +66,10 @@ function App() {
         {
           path: '/tweet/:id',
           element: <TweetDetails/>
+        },
+        {
+          path: '/notifications',
+          element: <Notifications/>
         }
       ]
     },

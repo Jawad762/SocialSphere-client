@@ -7,7 +7,8 @@ export const userSlice = createSlice({
         isLoading: false,
         error: false,
         isLogoutLoading: false,
-        token: null
+        token: null,
+        areNotifsRead: false
     },
     reducers: {
         loginStart: (state) => {
@@ -36,10 +37,13 @@ export const userSlice = createSlice({
         },
         updateToken: (state, action) => {
             state.token = action.payload
-        }
+        },
+        updateAreNotifsRead: (state, action) => {
+            state.areNotifsRead = action.payload
+        },
     }
 })
 
-export const { loginStart, loginComplete, loginFail, logoutStart, logoutComplete, updateUser, updateToken } = userSlice.actions
+export const { loginStart, loginComplete, loginFail, logoutStart, logoutComplete, updateUser, updateToken, updateAreNotifsRead } = userSlice.actions
 
 export default userSlice.reducer

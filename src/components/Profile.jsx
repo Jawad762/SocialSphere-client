@@ -74,7 +74,7 @@ const Profile = () => {
   const followOrUnfollowMutation = useMutation(followOrUnfollow)
   
   return (
-    <section className='md:ml-[20%] w-full md:pb-0 min-h-full h-fit md:border-x border-primaryGray relative'>
+    <section className='md:ml-[20%] w-full md:max-w-[51vw] md:pb-0 min-h-full h-fit md:border-x border-primaryGray relative'>
       
       {/* cover photo and profile picture */}
       <div className='relative'>
@@ -121,7 +121,7 @@ const Profile = () => {
           </div>
         </div>
         
-        <div className='w-full'>{profileUser && profileUser.description}</div>
+        <div className='w-full break-all'>{profileUser && profileUser.description}</div>
         
         <div className='flex justify-between pt-2 md:justify-around'>
           <button onClick={() => setSearchParams('?show=posts')} className={`pb-1 border-b-4 ${show === 'posts' ? 'border-secondaryBlue' : 'border-transparent'}`}>Posts</button>
